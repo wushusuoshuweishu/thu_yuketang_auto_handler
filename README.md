@@ -59,6 +59,10 @@
     - 发出1000Hz、长达2秒的蜂鸣提示
     - 仅测试了一般答题，对于“投票题”等不确定是否为“exercise”的题不确定能否正常提醒。
 
+### 关于其他雨课堂...
+
+我根据[aa5438a](https://github.com/wushusuoshuweishu/thu_yuketang_auto_handler/tree/aa5438a8ec92842b7d3a7879c99fac6f42565e9d)的`run.py`写了一份简单的[教学](./教学/README.md)，或许使用其他雨课堂的高校学生可以参考一下..?
+
 ### License
 
 [GPL-3.0 license](./LICENSE)

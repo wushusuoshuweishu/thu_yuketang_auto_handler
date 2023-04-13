@@ -56,7 +56,7 @@ def auto_handle(mode, lesson_name):
 
     handles = web_driver.window_handles
 
-    # 切换到最新打开的课程窗口
+    # 切换到最新打开的课程窗口及iframe
     web_driver.switch_to.window(handles[-1])
     iframe = web_driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[2]/div[3]/div/iframe')
     web_driver.switch_to.frame(iframe)

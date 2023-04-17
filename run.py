@@ -45,7 +45,7 @@ def auto_handle(mode, lesson_name):
                     web_driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div').click()
                     winsound.Beep(440, 5000)
                     print(str(datetime.datetime.now()) + "：进入课程成功")
-                    break
+                    flag = 0
             raise Exception
         except:
             # 否则刷新页面并等待5s

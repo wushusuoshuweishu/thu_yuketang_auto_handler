@@ -62,7 +62,7 @@ def auto_handle(mode, lesson_name):
     web_driver.switch_to.frame(iframe)
 
     # 手动答题模式
-    while mode:
+    while str(mode) != "0":
         try:
             # 每隔5s进行检测，发现有题后，发出1kHz、2s的蜂鸣提醒
             web_driver.find_element_by_class_name('page-exercise')
@@ -74,7 +74,7 @@ def auto_handle(mode, lesson_name):
             continue
 
     # 自动答题功能，
-    while not mode:
+    while str(mode) == '0':
         # 单选题/多选题
         try:
             web_driver.find_element_by_xpath('//*[@id="app"]/section/section[1]/section[2]/section/'
@@ -118,7 +118,7 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", type=bool, default=0, help="运行模式，其中0为自动答题，非0为提醒答题")
+    parser.add_argument("--mode", type=str, default=0, help="运行模式，其中0为自动答题，非0为提醒答题")
     parser.add_argument("--name", type=str, default="", help="课程全名（注意区分课程名中的括号，有些是中文括号，有些是英文括号）")
 
     args = parser.parse_args()

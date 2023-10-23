@@ -1,3 +1,3 @@
 configs = {
-    'cookie': []
+    'cookie': None
 }

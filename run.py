@@ -9,15 +9,11 @@ from config import configs
 
 def auto_handle(mode, lesson_name):
     # setup the chrome driver
-    options = webdriver.ChromeOptions()
-    options.add_experimental_option("excludeSwitches", ["enable-logging"])
-    options.binary_location = configs['binary_location']
-    web_driver = webdriver.Chrome('drivers/chromedriver.exe', chrome_options=options)
+    web_driver = webdriver.Chrome()
 
     cookies = configs['cookie']
 
     web_driver.get('https://tsinghua.yuketang.cn/pro/courselist')
-    # WebDriver.get('https://yuketang.cn/')
 
     print(str(datetime.datetime.now()) + "：启动成功")
 
@@ -28,7 +24,7 @@ def auto_handle(mode, lesson_name):
     web_driver.refresh()
     time.sleep(5)
     # click "我的课程"
-    web_driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[2]/div[3]/div/div[1]/div/div/div/div[2]/button').click()
+    web_driver.find_element('xpath', '//*[@id="app"]/div[2]/div[2]/div[2]/div/div[1]/div/div/div/div[2]/button').click()
     time.sleep(5)
     flag = 1
 
@@ -37,20 +33,19 @@ def auto_handle(mode, lesson_name):
     while flag:
         try:
             # click "正在上课提醒"
-            web_driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[2]/div[3]/div/div[1]/div[1]').click()
-            lesson_infos = web_driver.find_elements_by_class_name('lessonTitle')
+            web_driver.find_element('xpath', '//*[@id="app"]/div[2]/div[2]/div[2]/div/div[1]/div[1]').click()
+            lesson_infos = web_driver.find_elements('class name', 'lessonTitle')
             for lesson in lesson_infos:
                 if lesson.text == lesson_name:
-                    # 成功发现该课程，发出440Hz、5s的蜂鸣提醒
-                    web_driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[2]/div[3]/div/div[1]/div[2]/div').click()
-                    winsound.Beep(440, 5000)
+                    # 成功发现该课程，发出440Hz、2s的蜂鸣提醒
+                    lesson.click()
+                    winsound.Beep(440, 2000)
                     print(str(datetime.datetime.now()) + "：进入课程成功")
                     flag = 0
             raise Exception
         except:
             # 否则刷新页面并等待5s
             web_driver.get('https://tsinghua.yuketang.cn/pro/courselist')
-            # WebDriver.get('https://yuketang.cn/')
             time.sleep(5)
             continue
 
@@ -58,14 +53,14 @@ def auto_handle(mode, lesson_name):
 
     # 切换到最新打开的课程窗口及iframe
     web_driver.switch_to.window(handles[-1])
-    iframe = web_driver.find_element_by_xpath('//*[@id="app"]/div[2]/div[2]/div[3]/div/iframe')
+    iframe = web_driver.find_element('xpath', '//*[@id="app"]/div[2]/div[2]/div[2]/div/iframe')
     web_driver.switch_to.frame(iframe)
 
     # 手动答题模式
     while str(mode) != "0":
         try:
             # 每隔5s进行检测，发现有题后，发出1kHz、2s的蜂鸣提醒
-            web_driver.find_element_by_class_name('page-exercise')
+            web_driver.find_element('class name', 'page-exercise')
             print(str(datetime.datetime.now()) + "：发现题目")
             winsound.Beep(1000, 2000)
             time.sleep(5)
@@ -73,7 +68,7 @@ def auto_handle(mode, lesson_name):
             time.sleep(5)
             continue
 
-    # 自动答题功能，
+    # TODO:自动答题功能
     while str(mode) == '0':
         # 单选题/多选题
         try:

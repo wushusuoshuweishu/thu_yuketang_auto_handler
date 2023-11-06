@@ -89,7 +89,7 @@ def auto_handle(mode, lesson_name, default_options: list, default_content: str):
                 else:
                     # TODO: 主观题自动答题
                     pass
-                web_driver.find_element("xpath", "//div[@class='slide__shape submit-btn']").click()
+                web_driver.find_element("xpath", '//*[@id="app"]/section/section[1]/section[2]/section/section/section/section[1]/section/section/section/section/div[2]').click()
             time.sleep(5)
         except:
             time.sleep(5)

@@ -22,10 +22,7 @@ def auto_handle(mode, lesson_name, default_options: list, default_content: str):
         web_driver.add_cookie(cookie)
 
     # login using cookie
-    web_driver.refresh()
-    time.sleep(5)
-    # click "我的课程"
-    web_driver.find_element('xpath', '//*[@id="app"]/div[2]/div[2]/div[2]/div/div[1]/div/div/div/div[2]/button').click()
+    web_driver.get('https://tsinghua.yuketang.cn/pro/courselist')
     time.sleep(5)
     flag = 1
 
